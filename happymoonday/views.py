@@ -81,7 +81,7 @@ def comparison(request):
 
     pyplot.close()
 
-    return render(request, 'happymoonday/salesComparison.html', {'product_list': salesInfo})
+    return render(request, 'happymoonday/salesComparison.html', {'dataExists': salesInfo.exists()})
 
 
 def dataAdd(request):

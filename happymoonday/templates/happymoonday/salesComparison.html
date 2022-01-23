@@ -1,2 +1,5 @@
-{% load static %}
+{% if dataExists %} {% load static %}
 <img src="{% static 'graph.png' %}" alt="graph image" width="100%" />
+{% else %}
+<p>No Data</p>
+{% endif %}

@@ -1,0 +1,13 @@
+<a href="/happymoonday/rate">나이대별 품목 판매량, 품목별 총 판매량</a>
+<br />
+<a href="/happymoonday/comparison">평일, 주말 매출 비교</a>
+<form action="data_add" method="POST" enctype="multipart/form-data">
+  {% csrf_token %} {% if dataExist %}<input
+    type="button"
+    onclick="return alert('이미 데이터가 있습니다')"
+    value="데이터 추가"
+  />
+  {% else %}
+  <input type="submit" value="데이터 추가" />
+  {% endif %}
+</form>

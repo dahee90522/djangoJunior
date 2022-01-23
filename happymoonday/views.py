@@ -99,6 +99,7 @@ def dataAdd(request):
         Customer.objects.create(email='dahee7@gmail.com', birth='1991-10-03')
         Customer.objects.create(email='dahee8@gmail.com', birth='1978-05-05')
         Customer.objects.create(email='dahee9@gmail.com', birth='2005-07-10')
+        Customer.objects.create(email='dahee10@gmail.com', birth='1999-12-25')
 
     ## sales insert
     if isSales==False:
@@ -134,5 +135,9 @@ def dataAdd(request):
         Sales.objects.create(email='dahee2@gmail.com', product='탐폰 슈퍼', count=2, date='2022-01-30')
         Sales.objects.create(email='dahee9@gmail.com', product='생리대 중형', count=5, date='2022-02-01')
         Sales.objects.create(email='dahee9@gmail.com', product='생리대 대형', count=5, date='2022-02-02')
+        Sales.objects.create(email='dahee9@gmail.com', product='탐폰 라이트', count=1, date='2022-01-28')
+        Sales.objects.create(email='dahee8@gmail.com', product='탐폰 레귤러', count=6, date='2022-01-29')
+        Sales.objects.create(email='dahe6@gmail.com', product='탐폰 슈퍼', count=2, date='2022-01-30')
+        Sales.objects.create(email='dahee10@gmail.com', product='탐폰 라이트', count=4, date='2022-01-12')
 
     return render(request, 'happymoonday/index.html', {"dataExist":True})

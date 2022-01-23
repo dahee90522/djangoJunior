@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Customer, Sales
-import matplotlib
-import matplotlib.pyplot as plt
-import numpy as np
+from matplotlib import pyplot
+import numpy
 
 
 def index(request):
@@ -40,52 +39,50 @@ def rate(request):
     return render(request, 'happymoonday/saledRate.html', {'product_list': age_product_list, 'customer':sales_list, 'sumByProduct':sum_by_product, 'sumByAge':sum_by_age})
 
 
-# def comparison(request):
-#     salesInfo = Sales.objects.filter(date__year=2021)
-#     weekly_sum = {}
-#     for item in salesInfo:
-#         weekly_number = item.date.isocalendar()[0], '_', item.date.isocalendar()[1], '주차'
-#         weekly_sum[weekly_number]=0
-#         print(weekly_sum[weekly_number])
+def comparison(request):
+    salesInfo = Sales.objects.all()
+    weekly_sum = {}
+    label=[]
+    weekday=[]
+    weekend=[]
+    for item in salesInfo:
+        weekly_number = "{}_{}".format(item.date.isocalendar()[0],item.date.isocalendar()[1] )
+        if weekly_sum.__contains__(weekly_number)==False:
+            weekly_sum[weekly_number]={"weekday":0, "weekend":0}
+        
+        if 1<=item.date.isocalendar()[2]<=5:
+            weekly_sum[weekly_number]["weekday"]=weekly_sum[weekly_number]["weekday"]+item.count
+        else :
+            weekly_sum[weekly_number]["weekend"]=weekly_sum[weekly_number]["weekend"]+item.count
 
-#     return render(request, 'happymoonday/salesComparison.html', {'product_list': salesInfo})
-
-def comparison (request):
-    # 그래프에 한글 출력시 폰트 변경 (기본폰트 : sans-serif)
-    matplotlib.rcParams['font.family'] = 'Malgun Gothic'
-    # 그래프에서 마이너스(-)폰트 깨짐 방지
-    matplotlib.rcParams['axes.unicode_minus'] = False
-
-    # 멤버 이름
-    member_name = ['A','B','C','D']
-    # 막대 그래프 너비값
-    bar_width = 0.4
-    # 운동 전 데이터
-    before_data = [56,70,46,90]
-    # 운동 후 데이터
-    after_data = [70,75,60,100]
-    # x축 데이터 [0,1,2,3]
-    index = np.arange(len(member_name))
-
-    # before 막대 그래프
-    plt.bar(index, before_data, color = 'r', align='edge', width=bar_width, label='before')
-    # after 막대 그래프
-    plt.bar(index + bar_width, after_data, color = 'c', align='edge', width=bar_width, label='after')
-
-    # after 막대 그래프 x축 데이터에 맞춰 라벨 지정
-    plt.xticks(index + bar_width, member_name)
-    # plt.bar(label='문자열')을 통해 범례지정
-    plt.legend()
-    # x축 라벨 
-    plt.xlabel('회원 이름')
-    # y축 라벨
-    plt.ylabel('팔굽혀펴기 횟수')
-    # 타이틀
-    plt.title('운동 시작 전과 후 비교')
-    plt.show()
+    for item in weekly_sum:
+        label.append(item);
+        weekday.append(weekly_sum[item]["weekday"]/5);
+        weekend.append(weekly_sum[item]["weekend"]/2);
 
 
-    return render(request, 'happymoonday/salesComparison.html', {'graphic':graphic})
+    pyplot.rcParams["font.size"] = 12
+    pyplot.rcParams["figure.figsize"] = (12, 8)
+    
+    pyplot.figure()
+
+    x = numpy.arange(len(label))
+
+    pyplot.bar(x-0.0, weekday, label='Weekday', width=0.2, color='#C5875D')
+    pyplot.bar(x+0.2, weekend, label='Weekend', width=0.2, color='#CCA69C')
+    pyplot.xticks(x, label)
+
+    pyplot.legend()
+    pyplot.xlabel('Week number')
+    pyplot.ylabel('Day avarage count')
+    pyplot.title('Compare between weekday and weekend')
+
+    pyplot.savefig('happymoonday/static/graph.png')
+
+    pyplot.close()
+
+    return render(request, 'happymoonday/salesComparison.html', {'product_list': salesInfo})
+
 
 def dataAdd(request):
     isSales = Sales.objects.all().exists()
@@ -138,24 +135,3 @@ def dataAdd(request):
         Sales.objects.create(email='dahee9@gmail.com', product='생리대 대형', count=5, date='2022-02-02')
 
     return render(request, 'happymoonday/index.html', {"dataExist":True})
-
-"""
-rows = filter.values(product).distinct()
-프로덕트 목록
-
-1. sales 목록 불러옴
-2. 해당 행의 email로 customer 불러옴(필터링)
-3. 불러온 customer의 birth로 나이대 계산하기
-4. 나이대별 정리가능한 array에 삽입
-
-나이별 총합 array
-상품별 총합 array
-
-product
-int(나이 / 10))  <- 나이대
-
-"""
-
-"""
-1. 상품별로 매출일 불러옴
-"""

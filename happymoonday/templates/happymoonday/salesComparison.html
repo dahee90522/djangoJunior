@@ -1,6 +1,2 @@
-<img
-  src="data:image/png;base64,{{ graphic | safe }}"
-  alt=""
-  height="250"
-  width="250"
-/>
+{% load static %}
+<img src="{% static 'graph.png' %}" alt="graph image" width="100%" />

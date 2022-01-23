@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
     <link rel="stylesheet" href="{% static 'css/index.css' %}" />
   </head>
-
   <body>
     <button onclick="history.back()">< 뒤로가기</button>
     {% if product_list %}
@@ -61,7 +60,37 @@
         <td></td>
       </tr>
     </table>
-    {% else %}
+
+    {% comment %}
+    <table border="1" style="border-collapse: collapse">
+      <tr>
+        <td></td>
+        {% for item in product_list %}
+        <td>{{item}}</td>
+        {% endfor %}
+        <td>총합</td>
+      </tr>
+      {% for key, value in age_product_list.items %}
+      <tr>
+        <td>{{key}}대</td>
+        {% for key1, value1 in value.items %}
+        <td>{{ value1 }}</td>
+        {% endfor %} {% for key2, value2 in sumByAge.items %} {%if key == key2%}
+        <td>{{value2}}{%endif%}{%endfor%}</td>
+      </tr>
+
+      {% endfor %}
+
+      <tr>
+        <td>총합</td>
+        {% for key, value in sumByProduct.items %}
+        <td>{{ value }}</td>
+        {% endfor %}
+
+        <td></td>
+      </tr>
+    </table>
+    {% endcomment %} {% else %}
     <p>No Data</p>
     {% endif %}
   </body>

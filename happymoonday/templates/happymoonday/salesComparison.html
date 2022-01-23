@@ -8,7 +8,11 @@
   <body>
     <button onclick="history.back()">< 뒤로가기</button>
     {% if dataExists %}
-    <img src="{% static 'graph.png' %}" alt="graph image" />
+    <img
+      src="{% static 'graph.png' %}"
+      alt="graph image"
+      style="max-width: 1000px"
+    />
     {% else %}
     <p>No Data</p>
     {% endif %}

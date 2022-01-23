@@ -15,13 +15,20 @@ def rate(request):
     products_list = Sales.objects.all().values('product').distinct()
     sales_list = Sales.objects.all().values('email', 'product', 'count', 'date')
     age_product_list = {}
+    product_age_list = {10:{}, 20:{}, 30:{}, 40:{}, 50:{}}
     sum_by_product={}
     sum_by_age={10:0, 20:0, 30:0, 40:0, 50:0}
     
     for productList in products_list:
         productName = productList['product']
         age_product_list[productName.replace(' ', '_')]={10: 0, 20: 0, 30: 0, 40: 0, 50: 0}
+        product_age_list[10][productName.replace(' ', '_')]=0
+        product_age_list[20][productName.replace(' ', '_')]=0
+        product_age_list[30][productName.replace(' ', '_')]=0
+        product_age_list[40][productName.replace(' ', '_')]=0
+        product_age_list[50][productName.replace(' ', '_')]=0
         sum_by_product[productName.replace(' ', '_')]=0
+
 
     for salesList in sales_list:
         try:
@@ -31,12 +38,13 @@ def rate(request):
             if age>50:
                 age=50
             age_product_list[productName][age]=age_product_list[productName][age]+salesList['count']
+            product_age_list[age][productName]=product_age_list[age][productName]+salesList['count']
             sum_by_product[productName]=sum_by_product[productName]+salesList['count']
             sum_by_age[age]=sum_by_age[age]+salesList['count']
         except Customer.DoesNotExist:
             salesCustomerInfo=None
 
-    return render(request, 'happymoonday/saledRate.html', {'product_list': age_product_list, 'customer':sales_list, 'sumByProduct':sum_by_product, 'sumByAge':sum_by_age})
+    return render(request, 'happymoonday/saledRate.html', {'product_list': age_product_list,'age_product_list':product_age_list, 'customer':sales_list, 'sumByProduct':sum_by_product, 'sumByAge':sum_by_age})
 
 
 def comparison(request):

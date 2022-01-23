@@ -45,6 +45,7 @@ def comparison(request):
     label=[]
     weekday=[]
     weekend=[]
+
     for item in salesInfo:
         weekly_number = "{}_{}".format(item.date.isocalendar()[0],item.date.isocalendar()[1] )
         if weekly_sum.__contains__(weekly_number)==False:
@@ -64,10 +65,9 @@ def comparison(request):
     pyplot.rcParams["font.size"] = 12
     pyplot.rcParams["figure.figsize"] = (12, 8)
     
-    pyplot.figure()
+    pyplot.figure(facecolor='#f4f1ed')
 
     x = numpy.arange(len(label))
-
     pyplot.bar(x-0.0, weekday, label='Weekday', width=0.2, color='#C5875D')
     pyplot.bar(x+0.2, weekend, label='Weekend', width=0.2, color='#CCA69C')
     pyplot.xticks(x, label)
@@ -77,7 +77,8 @@ def comparison(request):
     pyplot.ylabel('Day avarage count')
     pyplot.title('Compare between weekday and weekend')
 
-    pyplot.savefig('happymoonday/static/graph.png')
+    
+    pyplot.savefig('happymoonday/static/graph.png', bbox_inches='tight', pad_inches=0)
 
     pyplot.close()
 

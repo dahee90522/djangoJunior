@@ -1,5 +1,16 @@
-{% if dataExists %} {% load static %}
-<img src="{% static 'graph.png' %}" alt="graph image" width="100%" />
-{% else %}
-<p>No Data</p>
-{% endif %}
+{% load static %}
+<html>
+  <head>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+  </head>
+
+  <body>
+    <button onclick="history.back()">< 뒤로가기</button>
+    {% if dataExists %}
+    <img src="{% static 'graph.png' %}" alt="graph image" />
+    {% else %}
+    <p>No Data</p>
+    {% endif %}
+  </body>
+</html>

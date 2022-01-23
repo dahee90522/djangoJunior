@@ -1,57 +1,68 @@
-{% if product_list %}
-<table border="1" style="border-collapse: collapse">
-  <tr>
-    <td></td>
-    {% for item in product_list %}
-    <td>{{item}}</td>
-    {% endfor %}
-    <td>총합</td>
-  </tr>
-  <tr>
-    <td>10대</td>
-    {% for key, value in product_list.items %}
-    <td>{{ value.10 }}</td>
-    {% endfor %}
-    <td>{{sumByAge.10}}</td>
-  </tr>
-  <tr>
-    <td>20대</td>
-    {% for key, value in product_list.items %}
-    <td>{{ value.20 }}</td>
-    {% endfor %}
-    <td>{{sumByAge.20}}</td>
-  </tr>
-  <tr>
-    <td>30대</td>
-    {% for key, value in product_list.items %}
-    <td>{{ value.30 }}</td>
-    {% endfor %}
-    <td>{{sumByAge.30}}</td>
-  </tr>
-  <tr>
-    <td>40대</td>
-    {% for key, value in product_list.items %}
-    <td>{{ value.40 }}</td>
-    {% endfor %}
-    <td>{{sumByAge.40}}</td>
-  </tr>
-  <tr>
-    <td>50대 이상</td>
-    {% for key, value in product_list.items %}
-    <td>{{ value.50 }}</td>
-    {% endfor %}
+{% load static %}
+<html>
+  <head>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+  </head>
 
-    <td>{{sumByAge.50}}</td>
-  </tr>
-  <tr>
-    <td>총합</td>
-    {% for key, value in sumByProduct.items %}
-    <td>{{ value }}</td>
-    {% endfor %}
+  <body>
+    <button onclick="history.back()">< 뒤로가기</button>
+    {% if product_list %}
+    <table border="1" style="border-collapse: collapse">
+      <tr>
+        <td></td>
+        {% for item in product_list %}
+        <td>{{item}}</td>
+        {% endfor %}
+        <td>총합</td>
+      </tr>
+      <tr>
+        <td>10대</td>
+        {% for key, value in product_list.items %}
+        <td>{{ value.10 }}</td>
+        {% endfor %}
+        <td>{{sumByAge.10}}</td>
+      </tr>
+      <tr>
+        <td>20대</td>
+        {% for key, value in product_list.items %}
+        <td>{{ value.20 }}</td>
+        {% endfor %}
+        <td>{{sumByAge.20}}</td>
+      </tr>
+      <tr>
+        <td>30대</td>
+        {% for key, value in product_list.items %}
+        <td>{{ value.30 }}</td>
+        {% endfor %}
+        <td>{{sumByAge.30}}</td>
+      </tr>
+      <tr>
+        <td>40대</td>
+        {% for key, value in product_list.items %}
+        <td>{{ value.40 }}</td>
+        {% endfor %}
+        <td>{{sumByAge.40}}</td>
+      </tr>
+      <tr>
+        <td>50대 이상</td>
+        {% for key, value in product_list.items %}
+        <td>{{ value.50 }}</td>
+        {% endfor %}
 
-    <td></td>
-  </tr>
-</table>
-{% else %}
-<p>No Data</p>
-{% endif %}
+        <td>{{sumByAge.50}}</td>
+      </tr>
+      <tr>
+        <td>총합</td>
+        {% for key, value in sumByProduct.items %}
+        <td>{{ value }}</td>
+        {% endfor %}
+
+        <td></td>
+      </tr>
+    </table>
+    {% else %}
+    <p>No Data</p>
+    {% endif %}
+  </body>
+</html>

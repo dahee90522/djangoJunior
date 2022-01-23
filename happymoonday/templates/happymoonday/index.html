@@ -1,13 +1,24 @@
-<a href="/happymoonday/rate">나이대별 품목 판매량, 품목별 총 판매량</a>
-<br />
-<a href="/happymoonday/comparison">평일, 주말 매출 비교</a>
-<form action="data_add" method="POST" enctype="multipart/form-data">
-  {% csrf_token %} {% if dataExist %}<input
-    type="button"
-    onclick="return alert('이미 데이터가 있습니다')"
-    value="데이터 추가"
-  />
-  {% else %}
-  <input type="submit" value="데이터 추가" />
-  {% endif %}
-</form>
+{% load static %}
+<html>
+  <head>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+  </head>
+
+  <body>
+    <div class="main-wrapper">
+      <a href="/happymoonday/rate">나이대별 품목 판매량, 품목별 총 판매량</a>
+      <a href="/happymoonday/comparison">평일, 주말 매출 비교</a>
+      <form action="data_add" method="POST" enctype="multipart/form-data">
+        {% csrf_token %} {% if dataExist %}<input
+          type="button"
+          onclick="return alert('이미 데이터가 있습니다')"
+          value="초기 데이터 추가"
+        />
+        {% else %}
+        <input type="submit" value="초기 데이터 추가" />
+        {% endif %}
+      </form>
+    </div>
+  </body>
+</html>
